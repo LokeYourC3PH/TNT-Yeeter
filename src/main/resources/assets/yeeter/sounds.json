@@ -1,0 +1,11 @@
+{
+  "entity.yeeter.yeet": {
+      "category": "hostile",
+    "subtitle": "subtitles.entity.yeeter.yeet",
+    "sounds": [
+        "yeeter:yeet_lachney",
+        "yeeter:yeet_jester",
+        "yeeter:yeet_vamacheron"
+    ]
+  }
+}

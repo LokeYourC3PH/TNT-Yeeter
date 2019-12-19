@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[30,)"
+issueTrackerURL="https://www.curseforge.com/minecraft/mc-mods/tnt-yeeter/settings/issues"
+[[mods]]
+modId="yeeter"
+version="${file.jarVersion}"
+displayName="TNT Yeeter"
+displayURL="https://www.curseforge.com/minecraft/mc-mods/tnt-yeeter"
+logoFile="tnt-yeeter.png"
+credits="Thanks to Lachney, Jesterguy, and Vamacher0n for contributing their voices to the TNT Yeeter."
+authors="Modding Legacy, KingPhygieBoo, Lachney"
+description='''
+Adds a TNT Yeeter mob inspired by Reddit post https://www.reddit.com/r/Minecraft/comments/cq0mgn/i_made_a_tnt_yeeter/
+'''
+[[dependencies.yeeter]]
+    modId="forge"
+    mandatory=true
+    versionRange="[30.0.0.10,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.yeeter]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.1]"
+    ordering="NONE"
+    side="BOTH"
