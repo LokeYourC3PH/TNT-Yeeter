@@ -139,6 +139,11 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 
 		if (this.tntTicks > 0)
 			--this.tntTicks;
+
+		/*if (!this.world.isRemote && this.getAttackTarget() == null && !this.getTNTShown())
+			this.setArmsRaised(false);
+		else if (this.world.isRemote && !this.getTNTShown())
+			this.setArmsRaised(false);*/
 	}
 
 	@Override
@@ -253,12 +258,14 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 				// set setting
 				this.func_233687_w_(!this.func_233685_eM_());
 
-				this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, this.func_233685_eM_() ? 1.3F : 0.7F);
+				this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, !this.func_233685_eM_() ? 1.3F : 0.7F);
 
 				this.isJumping = false;
 				this.navigator.clearPath();
 				this.setAttackTarget((LivingEntity) null);
 			}
+
+			return ActionResultType.SUCCESS;
 		}
 		else if (item == Items.GUNPOWDER)
 		{
