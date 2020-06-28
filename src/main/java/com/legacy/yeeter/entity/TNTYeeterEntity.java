@@ -8,7 +8,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.FollowOwnerGoal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
@@ -21,6 +22,7 @@ import net.minecraft.entity.ai.goal.RangedAttackGoal;
 import net.minecraft.entity.ai.goal.SitGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.item.TNTEntity;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.passive.TameableEntity;
@@ -33,12 +35,13 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.event.ForgeEventFactory;
 
@@ -57,8 +60,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 
 	protected void registerGoals()
 	{
-		this.sitGoal = new SitGoal(this);
-		this.goalSelector.addGoal(2, this.sitGoal);
+		this.goalSelector.addGoal(2, new SitGoal(this));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, WolfEntity.class, 6.0F, 1.0D, 1.2D));
 		this.goalSelector.addGoal(3, new RangedAttackGoal(this, 1.25D, 60, 20.0F));
 		this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
@@ -80,12 +82,17 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 		return 1.5F;
 	}
 
-	@Override
+	/*@Override
 	protected void registerAttributes()
-	{
+	{SkeletonEntity
 		super.registerAttributes();
 		this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(20.0D);
 		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
+	}*/
+
+	public static AttributeModifierMap.MutableAttribute registerAttributeMap()
+	{
+		return MonsterEntity.func_234295_eP_().func_233815_a_(Attributes.field_233821_d_, 0.25D);
 	}
 
 	@Override
@@ -154,24 +161,24 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 	@Override
 	public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor)
 	{
-		double xPos = this.getPosition().getX();
-		double yPos = this.getPosition().getY() + 2.0F;
-		double zPos = this.getPosition().getZ();
+		double xPos = this.func_233580_cy_().getX();
+		double yPos = this.func_233580_cy_().getY() + 2.0F;
+		double zPos = this.func_233580_cy_().getZ();
 
 		TNTEntity llamaspitentity = new TNTEntity(this.world, xPos, yPos, zPos, this);
 
-		double d0 = target.getPosition().getX() - this.getPosition().getX();
-		double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F - llamaspitentity.getPosition().getY() + 15.0F);
-		double d2 = target.getPosition().getZ() - this.getPosition().getZ();
+		double d0 = target.func_233580_cy_().getX() - this.func_233580_cy_().getX();
+		double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F - llamaspitentity.func_233580_cy_().getY() + 15.0F);
+		double d2 = target.func_233580_cy_().getZ() - this.func_233580_cy_().getZ();
 
-		this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.ENTITY_TNT_PRIMED, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
-		this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), YeeterSounds.YEET, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+		this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), SoundEvents.ENTITY_TNT_PRIMED, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+		this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), YeeterSounds.YEET, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
 
 		float inaccuracy = 1.0F;
 
 		float velocity = 0.7F;
 
-		Vec3d vec3d = (new Vec3d(d0, d1, d2)).normalize().add(this.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy, this.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy, this.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy).scale((double) velocity);
+		Vector3d vec3d = (new Vector3d(d0, d1, d2)).normalize().add(this.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy, this.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy, this.rand.nextGaussian() * (double) 0.0075F * (double) inaccuracy).scale((double) velocity);
 		llamaspitentity.setMotion(vec3d);
 		float f1 = MathHelper.sqrt(horizontalMag(vec3d));
 		llamaspitentity.rotationYaw = (float) (MathHelper.atan2(vec3d.x, d2) * (double) (180F / (float) Math.PI));
@@ -233,8 +240,9 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 		this.dataManager.set(TNT_SHOWN, Boolean.valueOf(raised));
 	}
 
+	// processInteract
 	@Override
-	public boolean processInteract(PlayerEntity player, Hand hand)
+	public ActionResultType func_230254_b_(PlayerEntity player, Hand hand)
 	{
 		ItemStack itemstack = player.getHeldItem(hand);
 		Item item = itemstack.getItem();
@@ -242,9 +250,10 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 		{
 			if (this.isOwner(player) && !this.world.isRemote)
 			{
-				this.sitGoal.setSitting(!this.isSitting());
+				// set setting
+				this.func_233687_w_(!this.func_233685_eM_());
 
-				this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, this.isSitting() ? 1.3F : 0.7F);
+				this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, this.func_233685_eM_() ? 1.3F : 0.7F);
 
 				this.isJumping = false;
 				this.navigator.clearPath();
@@ -265,11 +274,11 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 					this.setTamedBy(player);
 					this.navigator.clearPath();
 					this.setAttackTarget((LivingEntity) null);
-					this.sitGoal.setSitting(true);
+					this.func_233687_w_(true);
 					this.setHealth(this.getMaxHealth());
 					this.playTameEffect(true);
 					this.world.setEntityState(this, (byte) 7);
-					this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+					this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
 				}
 				else
 				{
@@ -278,10 +287,10 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 				}
 			}
 
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 
-		return super.processInteract(player, hand);
+		return super.func_230254_b_(player, hand);
 	}
 
 	@Override

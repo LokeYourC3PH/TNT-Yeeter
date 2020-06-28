@@ -8,7 +8,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder("yeeter")
+@ObjectHolder(YeeterMod.MODID)
 public class YeeterEntityTypes
 {
 	public static final EntityType<TNTYeeterEntity> TNT_YEETER = buildEntity("tnt_yeeter", EntityType.Builder.create(TNTYeeterEntity::new, EntityClassification.MONSTER).size(0.6F, 1.99F));

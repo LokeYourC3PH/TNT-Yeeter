@@ -6,9 +6,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod("yeeter")
+@Mod(YeeterMod.MODID)
 public class YeeterMod
 {
+	public static final String MODID = "yeeter";
+
 	public YeeterMod()
 	{
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(YeeterClient::initialization);
@@ -16,11 +18,11 @@ public class YeeterMod
 
 	public static ResourceLocation locate(String name)
 	{
-		return new ResourceLocation("yeeter", name);
+		return new ResourceLocation(MODID, name);
 	}
 
 	public static String find(String key)
 	{
-		return new String("yeeter:" + key);
+		return new String(MODID + ":" + key);
 	}
 }

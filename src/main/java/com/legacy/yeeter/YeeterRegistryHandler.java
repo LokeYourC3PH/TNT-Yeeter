@@ -1,9 +1,11 @@
 package com.legacy.yeeter;
 
 import com.legacy.yeeter.client.YeeterSounds;
+import com.legacy.yeeter.entity.TNTYeeterEntity;
 
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -18,7 +20,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-@EventBusSubscriber(modid = "yeeter", bus = Bus.MOD)
+@EventBusSubscriber(modid = YeeterMod.MODID, bus = Bus.MOD)
 public class YeeterRegistryHandler
 {
 	@SubscribeEvent
@@ -37,6 +39,7 @@ public class YeeterRegistryHandler
 	public static void onRegisterEntityTypes(Register<EntityType<?>> event)
 	{
 		YeeterEntityTypes.init(event);
+		GlobalEntityTypeAttributes.put(YeeterEntityTypes.TNT_YEETER, TNTYeeterEntity.registerAttributeMap().func_233813_a_());
 		EntitySpawnPlacementRegistry.register(YeeterEntityTypes.TNT_YEETER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
 	}
 
