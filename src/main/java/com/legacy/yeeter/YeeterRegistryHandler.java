@@ -21,7 +21,6 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 @EventBusSubscriber(modid = "yeeter", bus = Bus.MOD)
 public class YeeterRegistryHandler
 {
-
 	@SubscribeEvent
 	public static void onRegisterSounds(RegistryEvent.Register<SoundEvent> event)
 	{
@@ -40,7 +39,7 @@ public class YeeterRegistryHandler
 		YeeterEntityTypes.init(event);
 		EntitySpawnPlacementRegistry.register(YeeterEntityTypes.TNT_YEETER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
 	}
-	
+
 	static <T extends IForgeRegistryEntry<T>> void register(IForgeRegistry<T> registry, String name, T object)
 	{
 		object.setRegistryName(YeeterMod.locate(name));

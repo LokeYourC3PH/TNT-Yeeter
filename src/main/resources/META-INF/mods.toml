@@ -1,6 +1,6 @@
 modLoader="javafml"
-loaderVersion="[30,)"
-issueTrackerURL="https://gitlab.com/modding-legacy/yeet/issues"
+loaderVersion="[32,)"
+issueTrackerURL="https://gitlab.com/groups/modding-legacy/-/issues"
 [[mods]]
 modId="yeeter"
 version="${file.jarVersion}"
@@ -16,12 +16,12 @@ Adds a TNT Yeeter mob inspired by Reddit post https://www.reddit.com/r/Minecraft
 [[dependencies.yeeter]]
     modId="forge"
     mandatory=true
-    versionRange="[31.1.0,)"
+    versionRange="[32.0.23,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.yeeter]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15.2]"
+    versionRange="[1.16.1]"
     ordering="NONE"
     side="BOTH"

@@ -74,11 +74,13 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 		this.targetSelector.addGoal(3, new NonTamedTargetGoal<>(this, CowEntity.class, true, null));
 	}
 
+	@Override
 	protected float getStandingEyeHeight(Pose poseIn, EntitySize sizeIn)
 	{
 		return 1.5F;
 	}
 
+	@Override
 	protected void registerAttributes()
 	{
 		super.registerAttributes();
@@ -86,16 +88,19 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 		this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25D);
 	}
 
+	@Override
 	protected SoundEvent getAmbientSound()
 	{
 		return SoundEvents.ENTITY_SKELETON_AMBIENT;
 	}
 
+	@Override
 	protected SoundEvent getHurtSound(DamageSource damageSourceIn)
 	{
 		return SoundEvents.ENTITY_SKELETON_HURT;
 	}
 
+	@Override
 	protected SoundEvent getDeathSound()
 	{
 		return SoundEvents.ENTITY_SKELETON_DEATH;
@@ -184,6 +189,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 
 	}
 
+	@Override
 	protected void registerData()
 	{
 		super.registerData();
@@ -191,6 +197,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 		this.dataManager.register(TNT_SHOWN, Boolean.valueOf(false));
 	}
 
+	@Override
 	public void writeAdditional(CompoundNBT compound)
 	{
 		super.writeAdditional(compound);
@@ -198,6 +205,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 		compound.putBoolean("TNTShown", this.getTNTShown());
 	}
 
+	@Override
 	public void read(CompoundNBT compound)
 	{
 		super.read(compound);
@@ -225,6 +233,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 		this.dataManager.set(TNT_SHOWN, Boolean.valueOf(raised));
 	}
 
+	@Override
 	public boolean processInteract(PlayerEntity player, Hand hand)
 	{
 		ItemStack itemstack = player.getHeldItem(hand);
@@ -234,7 +243,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 			if (this.isOwner(player) && !this.world.isRemote)
 			{
 				this.sitGoal.setSitting(!this.isSitting());
-				
+
 				this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, this.isSitting() ? 1.3F : 0.7F);
 
 				this.isJumping = false;
