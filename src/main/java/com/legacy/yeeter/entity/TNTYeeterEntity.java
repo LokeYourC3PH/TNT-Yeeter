@@ -43,6 +43,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.ForgeEventFactory;
 
 public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
@@ -92,7 +93,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 
 	public static AttributeModifierMap.MutableAttribute registerAttributeMap()
 	{
-		return MonsterEntity.func_234295_eP_().func_233815_a_(Attributes.field_233821_d_, 0.25D);
+		return MonsterEntity.func_234295_eP_().createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.25D);
 	}
 
 	@Override
@@ -166,18 +167,18 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 	@Override
 	public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor)
 	{
-		double xPos = this.func_233580_cy_().getX();
-		double yPos = this.func_233580_cy_().getY() + 2.0F;
-		double zPos = this.func_233580_cy_().getZ();
+		double xPos = this.getPosition().getX();
+		double yPos = this.getPosition().getY() + 2.0F;
+		double zPos = this.getPosition().getZ();
 
 		TNTEntity llamaspitentity = new TNTEntity(this.world, xPos, yPos, zPos, this);
 
-		double d0 = target.func_233580_cy_().getX() - this.func_233580_cy_().getX();
-		double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F - llamaspitentity.func_233580_cy_().getY() + 15.0F);
-		double d2 = target.func_233580_cy_().getZ() - this.func_233580_cy_().getZ();
+		double d0 = target.getPosition().getX() - this.getPosition().getX();
+		double d1 = target.getBoundingBox().minY + (double) (target.getHeight() / 3.0F - llamaspitentity.getPosition().getY() + 15.0F);
+		double d2 = target.getPosition().getZ() - this.getPosition().getZ();
 
-		this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), SoundEvents.ENTITY_TNT_PRIMED, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
-		this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), YeeterSounds.YEET, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+		this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.ENTITY_TNT_PRIMED, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+		this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), YeeterSounds.YEET, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
 
 		float inaccuracy = 1.0F;
 
@@ -258,7 +259,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 				// set setting
 				this.func_233687_w_(!this.func_233685_eM_());
 
-				this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, !this.func_233685_eM_() ? 1.3F : 0.7F);
+				this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, !this.func_233685_eM_() ? 1.3F : 0.7F);
 
 				this.isJumping = false;
 				this.navigator.clearPath();
@@ -285,7 +286,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 					this.setHealth(this.getMaxHealth());
 					this.playTameEffect(true);
 					this.world.setEntityState(this, (byte) 7);
-					this.world.playSound((PlayerEntity) null, this.func_233580_cy_().getX(), this.func_233580_cy_().getY(), this.func_233580_cy_().getZ(), SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
+					this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, this.getSoundCategory(), 1.0F, 1.0F + (this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F);
 				}
 				else
 				{
@@ -301,7 +302,7 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 	}
 
 	@Override
-	public AgeableEntity createChild(AgeableEntity ageable)
+	public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) 
 	{
 		return null;
 	}

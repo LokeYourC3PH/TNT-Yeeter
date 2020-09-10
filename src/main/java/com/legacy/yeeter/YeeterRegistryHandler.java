@@ -39,7 +39,7 @@ public class YeeterRegistryHandler
 	public static void onRegisterEntityTypes(Register<EntityType<?>> event)
 	{
 		YeeterEntityTypes.init(event);
-		GlobalEntityTypeAttributes.put(YeeterEntityTypes.TNT_YEETER, TNTYeeterEntity.registerAttributeMap().func_233813_a_());
+		GlobalEntityTypeAttributes.put(YeeterEntityTypes.TNT_YEETER, TNTYeeterEntity.registerAttributeMap().create());
 		EntitySpawnPlacementRegistry.register(YeeterEntityTypes.TNT_YEETER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
 	}
 
