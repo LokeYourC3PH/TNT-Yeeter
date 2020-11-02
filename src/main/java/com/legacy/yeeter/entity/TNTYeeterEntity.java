@@ -257,9 +257,9 @@ public class TNTYeeterEntity extends TameableEntity implements IRangedAttackMob
 			if (this.isOwner(player) && !this.world.isRemote)
 			{
 				// set setting
-				this.func_233687_w_(!this.func_233685_eM_());
+				this.func_233687_w_(!this.isSitting());
 
-				this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, !this.func_233685_eM_() ? 1.3F : 0.7F);
+				this.world.playSound((PlayerEntity) null, this.getPosition().getX(), this.getPosition().getY(), this.getPosition().getZ(), SoundEvents.BLOCK_FIRE_EXTINGUISH, this.getSoundCategory(), 1.0F, !this.isSitting() ? 1.3F : 0.7F);
 
 				this.isJumping = false;
 				this.navigator.clearPath();
