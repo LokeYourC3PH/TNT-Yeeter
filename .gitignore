@@ -1,3 +1,9 @@
+# Temporary VS Files
+/.vs/TNTYeeter/CopilotIndices
+/.vs/TNTYeeter
+/.vs/*
+/.vs
+
 # Compiled class file
 *.class
 
